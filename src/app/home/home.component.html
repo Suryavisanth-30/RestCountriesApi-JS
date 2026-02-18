@@ -1,0 +1,35 @@
+<button class="back-btn" routerLink="/">⬅ Back</button>
+
+<h1 class="title">🌍 Country Search</h1>
+
+<div class="search-box">
+  <input [(ngModel)]="name" placeholder="Country name">
+  <input [(ngModel)]="region" placeholder="Region">
+  <input [(ngModel)]="capital" placeholder="Capital">
+
+  <button (click)="search()">Search</button>
+  <button class="reset" (click)="reset()">Reset</button>
+</div>
+
+<div class="grid">
+  <div class="card" *ngFor="let c of countries" (click)="open(c)">
+    <img [src]="c.flags.png">
+    <h3>{{ c.name.common }}</h3>
+  </div>
+</div>
+
+<p *ngIf="searched && countries.length === 0">No countries found</p>
+
+<div class="modal" *ngIf="selected">
+  <div class="box">
+    <span class="close" (click)="selected=null">✖</span>
+
+    <h2>{{ selected.name.common }}</h2>
+    <img [src]="selected.flags.png">
+
+    <p><b>Capital:</b> {{ selected.capital?.[0] }}</p>
+    <p><b>Languages:</b> {{ getLanguages(selected.languages) }}</p>
+    <p><b>Region:</b> {{ selected.region }}</p>
+    <p><b>Population:</b> {{ selected.population }}</p>
+  </div>
+</div>
